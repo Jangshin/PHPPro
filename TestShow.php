@@ -8,20 +8,22 @@ if (mysqli_connect_errno($con))
 else {
 // 执行查询
     echo "连接 MySQL 成功 ";
-    mysqli_query($con, "INSERT INTO test (Dir) VALUES ('test')");
+    mysqli_query($con, "INSERT INTO test  VALUES ('test')");
+    echo "<br>";
+    $sql = "select* from test";
+//查询
+    $results = $con -> query($sql);
 
-    $sql = "SELECT Dir FROM test";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-        // 输出数据
-        while($row = $result->fetch_assoc()) {
-            echo "Dir: " . $row["Dir"];
-        }
-    } else {
-        echo "0 结果";
+//遍历循环打印数据
+    while ($row = mysqli_fetch_array($results))
+    {
+//    print_r($row);
+        echo $row['Dir'];
+        echo "<br>";
     }
-
+//释放
+    mysqli_free_result($results);
+//关闭连接
     mysqli_close($con);
 }
 ?>
