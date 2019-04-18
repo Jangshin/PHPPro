@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>化石模型上传</title>
+
+    <link href="css/InputInfo.css" rel="stylesheet">
+</head>
+<body>
+<form name="form1" method="post" action="GetLoadTest.php">
+    <p style="font-family:courier" align="center" >请输入化石模型所属类
+        <br>
+    <input name="FileName" type="text" id="FileName" class="myInputInfo"><br>
+    <input name="submit" type="submit" value="提交" class="myInputInfo:focus">
+    </p>
+</form>
+</body>
+
+<form id="upform" enctype='multipart/form-data'>
+    <div class="form-group">
+        <label for="upteainput">上传文件</label>
+        <input id="upteainput" name="upfile" type="file" class="form-control-file">
+    </div>
+</form>
+</html>
