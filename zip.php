@@ -1,7 +1,6 @@
 <?php
 class Unzip{
     public function __construct(){
-        echo "zip";
         header("content-type:text/html;charset=utf8");
     }
     /**
