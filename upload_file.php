@@ -23,7 +23,7 @@ if (isset($_POST['submit'])) {
             $servername = "localhost";
             $username = "root";
             $password = "123456";
-            $mysql = "mytestdb";
+            $mysql = "ModelsDataBase";
 
 // 创建连接
             $conn = new mysqli($servername, $username, $password,$mysql);
@@ -33,7 +33,7 @@ if (isset($_POST['submit'])) {
             }
             else{
                 $dir = $parentDir.'/'.$var[0];
-                $sql="select * from testtable where Dir='$dir'";
+                $sql="select * from ModelsTable where Dir='$dir'";
                 mysqli_query($conn,"set names 'utf8'"); //数据库输出编码
                 $result=mysqli_query($conn,$sql);
                 if (!$result) {
@@ -45,7 +45,7 @@ if (isset($_POST['submit'])) {
                 }
                 else
                 {
-                    $sql = "insert into testtable (Dir,FileName) values ('$dir','$var[0]')";
+                    $sql = "insert into ModelsTable (Dir,FileName) values ('$dir','$var[0]')";
                     mysqli_query($conn,"set names 'utf8'"); //数据库输出编码
                     if($conn->multi_query($sql) ===true)
                     {
