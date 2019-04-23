@@ -1,5 +1,6 @@
 <?php
 require 'zip.php';
+require 'DBConfig.php';
 header("Content-type:text/html;charset=utf-8");
 //$periodsDate=$_POST['periodsDate'];
 
@@ -20,22 +21,11 @@ if (isset($_POST['submit'])) {
             $z = new Unzip();
             $z->unzip($filepath, $path, true, false);
             @unlink($filepath);
-            $servername = "localhost";
-            $username = "root";
-            $password = "123456";
-            $mysql = "ModelsDataBase";
 
-// 创建连接
-            $conn = new mysqli($servername, $username, $password,$mysql);
-// 检测连接
-            if ($conn->connect_error) {
-                echo "<script>alert('数据库访问出错：'.$conn->connect_error())</script>";
-            }
-            else{
                 $dir = $parentDir.'/'.$var[0];
                 $sql="select * from ModelsTable where Dir='$dir'";
-                mysqli_query($conn,"set names 'utf8'"); //数据库输出编码
-                $result=mysqli_query($conn,$sql);
+                mysqli_query($link,"set names 'utf8'"); //数据库输出编码
+                $result=mysqli_query($link,$sql);
                 if (!$result) {
                     echo "<script>alert('数据库错误！请检查数据库配置！)');location.href='InputFileData.html';</script>";
                 }
@@ -46,8 +36,8 @@ if (isset($_POST['submit'])) {
                 else
                 {
                     $sql = "insert into ModelsTable (Dir,FileName) values ('$dir','$var[0]')";
-                    mysqli_query($conn,"set names 'utf8'"); //数据库输出编码
-                    if($conn->multi_query($sql) ===true)
+                    mysqli_query($link,"set names 'utf8'"); //数据库输出编码
+                    if($link->multi_query($sql) ===true)
                     {
                         echo "<script>alert('上传成功！');location.href='InputFileData.html';</script>";
                     }
@@ -56,10 +46,9 @@ if (isset($_POST['submit'])) {
                         echo "<script>alert('上传至数据库失败，请检查！');location.href='InputFileData.html';</script>";
                     }
                     //关闭连接
-                    $conn->close();
+                    $link->close();
                 }
 
-            }
         } else {
             echo "<script>alert('上传失败！请确认上传信息无误！');location.href='InputFileData.html';</script>";
         }
