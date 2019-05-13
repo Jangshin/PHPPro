@@ -1,39 +1,62 @@
+<!DOCTYPE html>
 <html>
 <head>
-    <title>浏览表中记录</title>
+    <meta charset='utf-8'>
+    <title>用户管理</title>
 </head>
 <body>
+<div class='container'>
+    <h1 class='page-header'>用户管理</h1>
+    <p>
 <?php
-header("Content-type:text/html;charset=utf-8");
-echo "<body>";
-echo "<a href='html/Com3DData.html'>返回 </a>";
-echo "</body>";
-echo "<title style='color: #761c19'>模型文件删除</title>";
-echo "<h3>选择删除模型文件</h3>";
-
-require "DBConfig.php";
-
-$sql = "SELECT *  FROM modelstable";
-mysqli_query($link,"set names 'utf8'"); //数据库输出编码
-$result = mysqli_query($link, $sql);
-if (!$result) {
-    echo "<script>alert('数据库错误！请检查数据库配置！)');location.href='html/Com3DData.html';</script>";
+require_once('DBConfig.php');
+if (!$link)
+{
+      die("连接失败！");
 }
-else {
-        echo "<table border='2' style='width:50%' ;height:50% align='center'  style='color: #761c19'>";
-        echo "<tr><th align='center'> 所属类 </th><th align='center'> 模型文件 </th><th align='center'> 操作 </th></tr>";
-        while ($row = mysqli_fetch_assoc($result)) {
-            $var = explode("/", $row['Dir']);
-            echo "<tr>";
-            echo "<td align='center'>".$var[0]."</td>";
-            echo "<td align='center'>".$row['FileName']."</td>";
-            echo "<td align='center'> <a href='deleteDataAction.php?&value=$row[Dir]'>删除</a></td>";
-            echo "</tr>";
-        }
-        echo "</table>";
-        mysqli_free_result($result);
-        mysqli_close($link);
+$sql= "select count(*) as count from modelstable";
+$obj= mysqli_query($link,$sql);
+$pageall = mysqli_fetch_assoc($obj);
+$count = $pageall['count'];
+$num = 8;
+$lastPage = ceil($count/$num);
+$page =1;
+if($page>=$lastPage){
+    $page=$lastPage;
 }
+//下一页
+$nextpage = $page+1;
+if($nextpage>=$lastPage){
+    $nextpage=$lastPage;
+}
+//上一页
+$prepage = $page-1;
+if($prepage<=1){
+    $prepage=1;
+}
+$offset = ($page-1)*$num;
+$sql="select Dir,FileName from modelstable limit ".$offset.",".$num;
+$reslut = mysqli_query($link,$sql);
+if (mysqli_num_rows($reslut)>0)
+{
+echo '<table width="60%" border="1" align="center">';
+echo '<th>路径 </th><th>文件</th><th>操作</th>';
+
+while ($row = mysqli_fetch_assoc($reslut))
+{
+echo '<tr>';
+echo '<td>'.$row['Dir'].'</td>';
+echo '<td>'.$row['FileName'].'</td>';
+echo '<td><ahref="deleteDataAction.php?value='.$row['Dir'].'">删除</a></td>';
+echo '</tr>';
+}
+echo '</table>';
+}else {
+echo "没有数据！";
+}
+mysqli_close($link);
 ?>
+    </p>
+</div>
 </body>
 </html>
