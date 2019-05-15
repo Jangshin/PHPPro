@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,22 +17,22 @@
         }
     </style>
 
-    <link href="css/uploadStyle.css" rel="stylesheet">
+    <link href="../css/uploadStyle.css" rel="stylesheet">
 </head>
-<body background="image/uploadFileBG.jpg">
+<body background="../image/uploadFileBG.jpg">
 <div style="font-size: 20px">
-<a style="color:#FFFFFF " href='html/Com3DData.html'>返回</a>
+<a style="color:#FFFFFF " href='../Index.html'>返回</a>
 </div>
 <h2 style = "color:#FFFFFF">上传模型文件</h2>
 <div class="center"   >
-<form action="upload_file.php" method="post" enctype="multipart/form-data" >
+<form action="uploadFile.php" method="post" enctype="multipart/form-data" >
     <h2  style = "color:#FFFFFF">输入所属类</h2>
     <input type="text" name="belong" class ="input" />
     <h2  style = "color:#FFFFFF">上传文件(请选择一个压缩包 .zip)</h2>
     <input type="file" name="file" class="file" ; />
    <br>
     <br>
-    <input type="submit" name="submit" value="提交" style=" color:#000000 "  />
+    <input type="submit" name="submit" value="上传" style=" color:#000000 "  />
     <br>
 </form>
 </div>

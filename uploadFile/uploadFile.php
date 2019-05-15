@@ -1,6 +1,6 @@
 <?php
 require 'zip.php';
-require 'DBConfig.php';
+require '../DBConfig.php';
 header("Content-type:text/html;charset=utf-8");
 //$periodsDate=$_POST['periodsDate'];
 
